@@ -39,6 +39,8 @@ Take first 7 cards
 [_as you can see not yet fully implemented_]
 
 I'm currently thinkinging how to implement `compare` method in `hand.erl`, maybe you can help?
+
+```
 > Hand = hand:pickBest(Cards).
 [{3,spades},{7,club},{4,spades},{5,spades},{ace,heart}]
 ```
