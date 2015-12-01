@@ -1,5 +1,5 @@
 -module(deck).
--export([create/0, shuffle/1, show/1]).
+-export([create/0, shuffle/1, show/1, colors/0, figures/0]).
 
 figures() ->
     lists:seq(2,9) ++ [jack, queen, king, ace].
