@@ -35,5 +35,9 @@ rankings([{14,C}, {13,C}, {12,C}, {11,C}, {10,C}]) ->
 rankings([{N5,C}, {N4,C}, {N3,C}, {N2,C}, {N1,C}]) 
   when N5 == N4 + 1, N4 == N3 + 1, N3 == N2 + 1, N2 == N1 + 1 -> 
     {flush, N5, C};
+rankings([{F,_}, {F,_}, {F,_}, {F,_}, {O,C}]) ->
+    {four_of_a_kind, F, {O,C}};
+rankings([{O,C}, {F,_}, {F,_}, {F,_}, {F,_}]) ->
+    {four_of_a_kind, F, {O,C}};
 rankings([{V, C}|_]) -> {high_card, V, C}. 
     
