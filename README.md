@@ -32,11 +32,12 @@ Print single card
 Print few cards
 
 ```
-> util:print(deck:nth(5, Deck)).
+> util:print(deck:sublist(Deck, 5)).
 |8♥| |2♠| |3♠| |7♣| |4♠| 
 ```
 
-Take first 7 cards
+Select best hand (5 cards out of 7).
+
 
 ```
 > Cards = lists:sublist(Deck, 7).
@@ -47,15 +48,14 @@ Take first 7 cards
  {4,spades},
  {5,spades},
  {ace,heart}]
+
+> Hand = hand:pickBest(Cards).
+[{3,spades},{7,club},{4,spades},{5,spades},{ace,heart}]
+
 ```
 
- Select best hand (5 cards out of 7).
 
 [_as you can see not yet fully implemented_]
 
 I'm currently thinkinging how to implement `compare` method in `hand.erl`, maybe you can help?
 
-```
-> Hand = hand:pickBest(Cards).
-[{3,spades},{7,club},{4,spades},{5,spades},{ace,heart}]
-```
