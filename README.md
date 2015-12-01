@@ -21,6 +21,21 @@ Generate deck & shuffle cards
  {...}|...]
 ```
 
+Print single card
+
+```
+> Card = lists:nth(1, Deck).
+{8,heart}
+> util:print(deck:show(Card)).
+|8♥|
+```
+Print few cards
+
+```
+> util:print(deck:nth(5, Deck)).
+|8♥| |2♠| |3♠| |7♣| |4♠| 
+```
+
 Take first 7 cards
 
 ```
@@ -32,21 +47,6 @@ Take first 7 cards
  {4,spades},
  {5,spades},
  {ace,heart}]
- ```
-
-Print single card
-
-```
-> Card = lists:nth(1, Cards).
-{8,heart}
-> util:print(deck:show(Card)).
-|8♥|
-```
-Print few cards
-
-```
-> util:print(deck:show(Cards)).
-|8♥| |2♠| |3♠| |7♣| |4♠| |5♠| |A♥| 
 ```
 
  Select best hand (5 cards out of 7).
