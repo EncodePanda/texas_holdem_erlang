@@ -39,5 +39,9 @@ rankings([{F,_}, {F,_}, {F,_}, {F,_}, {O,C}]) ->
     {four_of_a_kind, F, {O,C}};
 rankings([{O,C}, {F,_}, {F,_}, {F,_}, {F,_}]) ->
     {four_of_a_kind, F, {O,C}};
+rankings([{F,_}, {F,_}, {F,_}, {O,_}, {O,_}]) ->
+    {full_house, F, O};
+rankings([{O,_}, {O,_}, {F,_}, {F,_}, {F,_}]) ->
+    {full_house, F, O};
 rankings([{V, C}|_]) -> {high_card, V, C}. 
     
