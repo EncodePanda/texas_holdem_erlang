@@ -1,5 +1,5 @@
 -module(test).
--export([royal_flush/1, flush/2, four_kind/1, full_house/2]).
+-export([test/0, royal_flush/1, flush/2, four_kind/1, full_house/2]).
 
 repeat(F, N) ->
     lists:sublist(lists:map(fun(C) -> {F,C} end, deck:colors()),N).
@@ -15,3 +15,14 @@ four_kind(F) ->
 
 full_house(F,O) ->
     deck:shuffle(repeat(F,3) ++ repeat(O, 2)).
+
+
+test() ->
+    [dimonds, heart, club, spades] = deck:colors(),
+    [2,3,4,5,6,7,8,9,jack,queen,king,ace] = deck:figures(),
+    Deck = deck:shuffle(deck:create()),
+    "|A♣|" = deck:show({ace, club}),
+    {royal_flush, heart} = hand:rank(royal_flush(heart)),
+    {flush, 10, heart} = hand:rank(flush(10, heart)),
+    {test_worked}.
+    
