@@ -43,5 +43,12 @@ rankings([{F,_}, {F,_}, {F,_}, {O,_}, {O,_}]) ->
     {full_house, F, O};
 rankings([{O,_}, {O,_}, {F,_}, {F,_}, {F,_}]) ->
     {full_house, F, O};
+rankings([{H,C}, {_,C}, {_,C}, {_,C}, {_,C}]) ->
+    {color, C, H};
+rankings([{N5,_}, {N4,_}, {N3,_}, {N2,_}, {N1,_}]) 
+  when N5 == N4 + 1, N4 == N3 + 1, N3 == N2 + 1, N2 == N1 + 1 -> 
+    {straight, N5};
+rankings([{F,_}, {F,_}, {F,_}, {O1,_}, {_,_}]) ->
+    {three_of_a_kind, F, O};
 rankings([{V, C}|_]) -> {high_card, V, C}. 
     
