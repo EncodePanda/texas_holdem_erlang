@@ -16,6 +16,10 @@ four_kind(F) ->
 full_house(F,O) ->
     deck:shuffle(repeat(F,3) ++ repeat(O, 2)).
 
+color(C) ->
+    Deck = deck:shuffle(deck:create()),
+    OneColor = lists:filter(fun({_, CC}) -> CC == C end, Deck),
+    lists:sublist(OneColor, 5).
 
 test() ->
     [dimonds, heart, club, spades] = deck:colors(),
@@ -26,5 +30,6 @@ test() ->
     {flush, 10, heart} = hand:rank(flush(10, heart)),
     {four_of_a_kind, 10} = hand:rank(four_kind(10)),
     {full_house, ace, king} = hand:rank(full_house(ace, king)),
+    {color, club, _} = hand:rank(color(club)),
     {test_worked}.
     
