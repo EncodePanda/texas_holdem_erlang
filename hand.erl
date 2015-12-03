@@ -16,38 +16,44 @@ pickBest(Cards) ->
 compare(Hand1,Hand2) ->
     true.
 
-figure_to_int(jack) -> 11;
-figure_to_int(queen) -> 12;
-figure_to_int(king) -> 13;
-figure_to_int(ace) -> 14;
-figure_to_int(N) -> N.
-    
-rank_card({Figure, Color}) -> {figure_to_int(Figure), Color}.
+f2i(jack) -> 11;
+f2i(queen) -> 12;
+f2i(king) -> 13;
+f2i(ace) -> 14;
+f2i(N) -> N.
 
-arrange(RHand) ->
-    sort(fun({N1, _},{N2, _}) -> N1 >= N2 end, RHand).
+i2f(11) -> jack;
+i2f(12) -> queen;
+i2f(13) -> king;
+i2f(14 ) -> ace;
+i2f(N) -> N.
+    
+card_to_value({Figure, Color}) -> {f2i(Figure), Color}.
+
+arrange(Hand) ->
+    sort(fun({F1, _},{F2, _}) -> f2i(F1) >= f2i(F2) end, Hand).
 
 rank(Hand) -> 
-    rankings(arrange(map(fun rank_card/1, Hand))).
+    rankings(map(fun card_to_value/1,arrange(Hand))).
 
 rankings([{14,C}, {13,C}, {12,C}, {11,C}, {10,C}]) -> 
     {royal_flush, C};
 rankings([{N5,C}, {N4,C}, {N3,C}, {N2,C}, {N1,C}]) 
   when N5 == N4 + 1, N4 == N3 + 1, N3 == N2 + 1, N2 == N1 + 1 -> 
-    {flush, N5, C};
+    {flush, i2f(N5), C};
 rankings([{F,_}, {F,_}, {F,_}, {F,_}, {O,C}]) ->
-    {four_of_a_kind, F, {O,C}};
+    {four_of_a_kind, i2f(F)};
 rankings([{O,C}, {F,_}, {F,_}, {F,_}, {F,_}]) ->
-    {four_of_a_kind, F, {O,C}};
+    {four_of_a_kind, i2f(F)};
 rankings([{F,_}, {F,_}, {F,_}, {O,_}, {O,_}]) ->
-    {full_house, F, O};
+    {full_house, i2f(F), i2f(O)};
 rankings([{O,_}, {O,_}, {F,_}, {F,_}, {F,_}]) ->
-    {full_house, F, O};
+    {full_house, i2f(F), i2f(O)};
 rankings([{H,C}, {_,C}, {_,C}, {_,C}, {_,C}]) ->
-    {color, C, H};
+    {color, C, i2f(H)};
 rankings([{N5,_}, {N4,_}, {N3,_}, {N2,_}, {N1,_}]) 
   when N5 == N4 + 1, N4 == N3 + 1, N3 == N2 + 1, N2 == N1 + 1 -> 
-    {straight, N5};
+    {straight, i2f(N5)};
 rankings([{F,_}, {F,_}, {F,_}, {O1,_}, {_,_}]) ->
     {three_of_a_kind, F, O1};
 rankings([{F,_}, {F,_}, {O,_}, {O,_}, {_,_}]) ->
