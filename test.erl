@@ -24,5 +24,7 @@ test() ->
     "|A♣|" = deck:show({ace, club}),
     {royal_flush, heart} = hand:rank(royal_flush(heart)),
     {flush, 10, heart} = hand:rank(flush(10, heart)),
+    {four_of_a_kind, 10} = hand:rank(four_kind(10)),
+    {full_house, ace, king} = hand:rank(full_house(ace, king)),
     {test_worked}.
     
