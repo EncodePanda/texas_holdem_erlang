@@ -27,6 +27,12 @@ straight(N5) ->
 three_kind(F) ->
     deck:shuffle(repeat(F, 3) ++ [{2,heart}, {3, heart}]).
 
+two_pairs(F1, F2) ->
+    deck:shuffle(repeat(F1, 2) ++ repeat(F2, 2) ++ [{2,heart}]).
+
+pair(F) ->
+    deck:shuffle(repeat(F, 2) ++ [{2,heart}, {3, spades}, {4, dimonds}]).
+
 test() ->
     [dimonds, heart, club, spades] = deck:colors(),
     [2,3,4,5,6,7,8,9,jack,queen,king,ace] = deck:figures(),
@@ -39,5 +45,7 @@ test() ->
     {color, club, _} = hand:rank(color(club)),
     {straight, 8} = hand:rank(straight(8)),
     {three_of_a_kind, ace} = hand:rank(three_kind(ace)),
+    {two_pairs, ace, king} = hand:rank(two_pairs(ace, king)),
+    {pair, king} = hand:rank(pair(king)),
     {test_worked}.
     
