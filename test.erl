@@ -2,7 +2,7 @@
 -export([test/0, royal_flush/1, flush/2, four_kind/1, full_house/2]).
 
 repeat(F, N) ->
-    lists:sublist(lists:map(fun(C) -> {F,C} end, deck:colors()),N).
+    lists:sublist(lists:map(fun(C) -> {F,C} end, colors:list()),N).
 
 royal_flush(C) ->
     deck:shuffle([{ace,C}, {king,C}, {queen,C}, {jack,C}, {10,C}]).
@@ -34,8 +34,8 @@ pair(F) ->
     deck:shuffle(repeat(F, 2) ++ [{2,heart}, {3, spades}, {4, dimonds}]).
 
 test() ->
-    [dimonds, heart, club, spades] = deck:colors(),
-    [2,3,4,5,6,7,8,9,jack,queen,king,ace] = deck:figures(),
+    [dimonds, heart, club, spades] = colors:list(),
+    [2,3,4,5,6,7,8,9,jack,queen,king,ace] = figures:list(),
     Deck = deck:shuffle(deck:create()),
     "|A♣|" = deck:show({ace, club}),
     {royal_flush, heart} = hand:rank(royal_flush(heart)),

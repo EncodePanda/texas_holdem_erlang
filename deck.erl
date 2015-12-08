@@ -1,30 +1,12 @@
 -module(deck).
--export([create/0, shuffle/1, show/1, colors/0, figures/0]).
-
-figures() ->
-    lists:seq(2,9) ++ [jack, queen, king, ace].
-
-colors() ->
-    [dimonds, heart, club, spades].
+-export([create/0, shuffle/1, show/1]).
 
 create() ->
-    [{Figure, Color} || Color <- colors(), Figure <- figures()].
-
-shuffleList(L) ->
-    [X||{_,X} <- lists:sort([ {random:uniform(), N} || N <- L])].
+    [{Figure, Color} || Color <- colors:list(), Figure <- figures:list()].
 
 shuffle(Deck) ->
-    shuffleList(Deck).
+    util:shuffleList(Deck).
 
-show(spades) -> "♠";	       
-show(heart) -> "♥";			       
-show(club) -> "♣";		     
-show(dimonds) -> "♦";
-show(jack) -> "J";
-show(queen) -> "Q";
-show(king) -> "K";
-show(ace) -> "A";
-show({Figure, Color}) -> "|" ++ show(Figure) ++ show(Color) ++ "|";
+show({Figure, Color}) -> "|" ++ figures:show(Figure) ++ colors:show(Color) ++ "|";
 show([H|T]) -> show(H) ++ " " ++ show(T);
-show([]) -> "";
-show(N) -> util:number_to_string(N).
+show([]) -> "".

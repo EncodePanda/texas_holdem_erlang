@@ -1,32 +1,16 @@
 -module(hand).
 -export([pickBest/1, compare/2, rank/1]).
 -import(lists, [sort/2, nth/2, map/2]).
-
-
-perms([]) -> [[]];
-perms(L) ->[[H|T]  || H <- L,
-		      T <- perms(L -- [H])].
+-import(figures, [f2i/1, i2f/1]).
 
 allHands(Cards) ->
-    [T || [_,_|T] <- perms(Cards)].
+    [T || [_,_|T] <- util:perms(Cards)].
 
 pickBest(Cards) ->
-    nth(1,sort(compare/2, allHands(Cards))).
+    nth(1,sort(fun compare/2, allHands(Cards))).
 
 compare(Hand1,Hand2) ->
     true.
-
-f2i(jack) -> 11;
-f2i(queen) -> 12;
-f2i(king) -> 13;
-f2i(ace) -> 14;
-f2i(N) -> N.
-
-i2f(11) -> jack;
-i2f(12) -> queen;
-i2f(13) -> king;
-i2f(14 ) -> ace;
-i2f(N) -> N.
     
 card_to_value({Figure, Color}) -> {f2i(Figure), Color}.
 
@@ -41,9 +25,9 @@ rankings([{14,C}, {13,C}, {12,C}, {11,C}, {10,C}]) ->
 rankings([{N5,C}, {N4,C}, {N3,C}, {N2,C}, {N1,C}]) 
   when N5 == N4 + 1, N4 == N3 + 1, N3 == N2 + 1, N2 == N1 + 1 -> 
     {flush, i2f(N5), C};
-rankings([{F,_}, {F,_}, {F,_}, {F,_}, {O,C}]) ->
+rankings([{F,_}, {F,_}, {F,_}, {F,_}, {_,_}]) ->
     {four_of_a_kind, i2f(F)};
-rankings([{O,C}, {F,_}, {F,_}, {F,_}, {F,_}]) ->
+rankings([{_,_}, {F,_}, {F,_}, {F,_}, {F,_}]) ->
     {four_of_a_kind, i2f(F)};
 rankings([{F,_}, {F,_}, {F,_}, {O,_}, {O,_}]) ->
     {full_house, i2f(F), i2f(O)};
