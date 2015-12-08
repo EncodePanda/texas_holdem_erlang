@@ -21,6 +21,12 @@ color(C) ->
     OneColor = lists:filter(fun({_, CC}) -> CC == C end, Deck),
     lists:sublist(OneColor, 5).
 
+straight(N5) ->
+    deck:shuffle([{N5,heart}, {N5-1,club}, {N5-2,spades}, {N5-3,dimonds}, {N5-4,heart}]).
+
+three_kind(F) ->
+    deck:shuffle(repeat(F, 3) ++ [{2,heart}, {3, heart}]).
+
 test() ->
     [dimonds, heart, club, spades] = deck:colors(),
     [2,3,4,5,6,7,8,9,jack,queen,king,ace] = deck:figures(),
@@ -31,5 +37,7 @@ test() ->
     {four_of_a_kind, 10} = hand:rank(four_kind(10)),
     {full_house, ace, king} = hand:rank(full_house(ace, king)),
     {color, club, _} = hand:rank(color(club)),
+    {straight, 8} = hand:rank(straight(8)),
+    {three_of_a_kind, ace} = hand:rank(three_kind(ace)),
     {test_worked}.
     

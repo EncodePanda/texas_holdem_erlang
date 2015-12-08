@@ -54,11 +54,11 @@ rankings([{H,C}, {_,C}, {_,C}, {_,C}, {_,C}]) ->
 rankings([{N5,_}, {N4,_}, {N3,_}, {N2,_}, {N1,_}]) 
   when N5 == N4 + 1, N4 == N3 + 1, N3 == N2 + 1, N2 == N1 + 1 -> 
     {straight, i2f(N5)};
-rankings([{F,_}, {F,_}, {F,_}, {O1,_}, {_,_}]) ->
-    {three_of_a_kind, F, O1};
+rankings([{F,_}, {F,_}, {F,_}, {_,_}, {_,_}]) ->
+    {three_of_a_kind, i2f(F)};
 rankings([{F,_}, {F,_}, {O,_}, {O,_}, {_,_}]) ->
-    {two_pairs, F, O};
+    {two_pairs,  i2f(F),  i2f(O)};
 rankings([{F,_}, {F,_}, {_,_}, {_,_}, {_,_}]) ->
-    {pair, F};
-rankings([{V, C}|_]) -> {high_card, V, C}. 
+    {pair,  i2f(F)};
+rankings([{F, C}|_]) -> {high_card, {i2f(F), C}}. 
     
