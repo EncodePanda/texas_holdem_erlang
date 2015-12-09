@@ -1,5 +1,5 @@
 -module(hand).
--export([pickBest/1, compare/2, rank/1]).
+-export([pickBest/1, compare/2, rank/1, arrange/1]).
 -import(lists, [sort/2, nth/2, map/2]).
 -import(figures, [f2i/1, i2f/1]).
 

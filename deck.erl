@@ -8,5 +8,5 @@ shuffle(Deck) ->
     util:shuffleList(Deck).
 
 show({Figure, Color}) -> "|" ++ figures:show(Figure) ++ colors:show(Color) ++ "|";
-show([H|T]) -> show(H) ++ " " ++ show(T);
+show([H|T]) -> string:strip(show(H) ++ " " ++ show(T));
 show([]) -> "".

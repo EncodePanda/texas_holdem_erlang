@@ -68,5 +68,6 @@ test() ->
     -1 = hand:compare(FourOfAKindAce, HeartFlush),   
     %% print cards & hands
     "|A♣|" = deck:show({ace, club}),
+    "|A♦| |K♦| |Q♦| |J♦| |10♦|" = deck:show(hand:arrange(royal_flush(dimonds))),
     {test_worked}.
     
