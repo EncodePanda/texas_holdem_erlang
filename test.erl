@@ -1,8 +1,13 @@
 -module(test).
 -export([test/0, royal_flush/1, flush/2, four_kind/1, full_house/2]).
+-import(figures, [f2i/1, i2f/1]).
 
 repeat(F, N) ->
     lists:sublist(lists:map(fun(C) -> {F,C} end, colors:list()),N).
+
+sequence(S,E) ->
+    SeqOfNum = lists:seq(f2i(S), f2i(E)),
+    lists:map(fun(N) -> i2f(N) end, SeqOfNum).
 
 royal_flush(C) ->
     deck:shuffle([{ace,C}, {king,C}, {queen,C}, {jack,C}, {10,C}]).
