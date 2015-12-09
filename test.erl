@@ -1,5 +1,5 @@
 -module(test).
--export([test/0, royal_flush/1, flush/2, four_kind/1, full_house/2]).
+-export([test/0, royal_flush/1, flush/2, four_kind/1, color/1, full_house/2]).
 -import(figures, [f2i/1, i2f/1]).
 
 repeat(F, N) ->
@@ -39,23 +39,34 @@ pair(F) ->
     deck:shuffle(repeat(F, 2) ++ [{2,heart}, {3, spades}, {4, dimonds}]).
 
 test() ->
+    %% colors & figures
     [dimonds, heart, club, spades] = colors:list(),
     [2,3,4,5,6,7,8,9,jack,queen,king,ace] = figures:list(),
+    %% create Deck and few Hands
     Deck = deck:shuffle(deck:create()),
     HeartRoyalFlush = royal_flush(heart),
     HeartFlush = flush(10, heart),
-    "|A♣|" = deck:show({ace, club}),
+    SpadesFlush = flush(9, spades),
+    FourOfAKindAce = four_kind(ace),
+    %% rank hands
     {royal_flush, heart} = hand:rank(HeartRoyalFlush),
     {flush, 10, heart} = hand:rank(HeartFlush),
-    {four_of_a_kind, 10} = hand:rank(four_kind(10)),
+    {four_of_a_kind, ace} = hand:rank(FourOfAKindAce),
     {full_house, ace, king} = hand:rank(full_house(ace, king)),
     {color, club, _} = hand:rank(color(club)),
     {straight, 8} = hand:rank(straight(8)),
     {three_of_a_kind, ace} = hand:rank(three_kind(ace)),
     {two_pairs, ace, king} = hand:rank(two_pairs(ace, king)),
     {pair, king} = hand:rank(pair(king)),
+    %% compare hands
     0 = hand:compare(HeartRoyalFlush, HeartRoyalFlush),
     -1 = hand:compare(HeartFlush, HeartRoyalFlush),
     1 = hand:compare(HeartRoyalFlush, HeartFlush),
+    1 = hand:compare(HeartFlush, SpadesFlush),
+    -1 = hand:compare(SpadesFlush, HeartFlush),
+    1 = hand:compare(HeartFlush, FourOfAKindAce),
+    -1 = hand:compare(FourOfAKindAce, HeartFlush),   
+    %% print cards & hands
+    "|A♣|" = deck:show({ace, club}),
     {test_worked}.
     
