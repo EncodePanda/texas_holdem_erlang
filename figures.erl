@@ -22,5 +22,4 @@ i2f(13) -> king;
 i2f(14 ) -> ace;
 i2f(N) -> N.
 
-compare(f1, f2) ->
-    f2i(f1) -f2i(f2).
+compare(f1, f2) -> f2i(f1) -f2i(f2).
