@@ -1,5 +1,5 @@
 -module(figures).
--export([list/0, show/1,f2i/1, i2f/1]).
+-export([list/0, compare/2, show/1,f2i/1, i2f/1]).
 
 list() ->
     lists:seq(2,9) ++ [jack, queen, king, ace].
@@ -21,3 +21,6 @@ i2f(12) -> queen;
 i2f(13) -> king;
 i2f(14 ) -> ace;
 i2f(N) -> N.
+
+compare(f1, f2) ->
+    f2i(f1) -f2i(f2).

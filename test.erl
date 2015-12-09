@@ -37,9 +37,11 @@ test() ->
     [dimonds, heart, club, spades] = colors:list(),
     [2,3,4,5,6,7,8,9,jack,queen,king,ace] = figures:list(),
     Deck = deck:shuffle(deck:create()),
+    HeartRoyalFlush = royal_flush(heart),
+    HeartFlush = flush(10, heart),
     "|A♣|" = deck:show({ace, club}),
-    {royal_flush, heart} = hand:rank(royal_flush(heart)),
-    {flush, 10, heart} = hand:rank(flush(10, heart)),
+    {royal_flush, heart} = hand:rank(HeartRoyalFlush),
+    {flush, 10, heart} = hand:rank(HeartFlush),
     {four_of_a_kind, 10} = hand:rank(four_kind(10)),
     {full_house, ace, king} = hand:rank(full_house(ace, king)),
     {color, club, _} = hand:rank(color(club)),
@@ -47,5 +49,8 @@ test() ->
     {three_of_a_kind, ace} = hand:rank(three_kind(ace)),
     {two_pairs, ace, king} = hand:rank(two_pairs(ace, king)),
     {pair, king} = hand:rank(pair(king)),
+    0 = hand:compare(HeartRoyalFlush, HeartRoyalFlush),
+    -1 = hand:compare(HeartFlush, HeartRoyalFlush),
+    1 = hand:compare(HeartRoyalFlush, HeartFlush),
     {test_worked}.
     

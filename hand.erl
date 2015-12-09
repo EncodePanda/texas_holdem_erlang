@@ -7,10 +7,15 @@ allHands(Cards) ->
     [T || [_,_|T] <- util:perms(Cards)].
 
 pickBest(Cards) ->
-    nth(1,sort(fun compare/2, allHands(Cards))).
+    nth(1,sort(fun(H1, H2) -> compare(H1,H2) >= 0 end, allHands(Cards))).
 
-compare(Hand1,Hand2) ->
-    true.
+compare(Hand1, Hand2) ->
+    compareRanks(rank(Hand1), rank(Hand2)).
+
+compareRanks({royal_flush, _},{royal_flush, _}) -> 0;
+compareRanks({royal_flush, _}, _) -> 1; 
+compareRanks(_, {royal_flush, _}) -> -1;
+compareRanks({high_card, {F1,_}}, {high_card, {F2,_}}) -> figures:compare(F1, F2).
     
 card_to_value({Figure, Color}) -> {f2i(Figure), Color}.
 
