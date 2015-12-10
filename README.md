@@ -49,6 +49,25 @@ Rank hands
 {pair, king} = hand:rank(PairKing),
 ```
 
+Arrange hands
+
+```
+> hand:arrange([{10,heart}, {king,heart}, {jack,heart}, {ace,heart}, {queen,heart}]).
+[{ace,heart},
+ {king,heart},
+ {queen,heart},
+ {jack,heart},
+ {10,heart}]
+
+
+> hand:arrange([{ace,heart}, {king,dimonds}, {king,heart}, {ace,dimonds}, {ace,club}]).
+[{ace,heart},
+ {ace,dimonds},
+ {ace,club},
+ {king,dimonds},
+ {king,heart}]
+```
+
 
 Print single card
 
@@ -83,8 +102,4 @@ Select best hand (5 cards out of 7).
 
 ```
 
-
-[_as you can see not yet fully implemented_]
-
-I'm currently thinkinging how to implement `compare` method in `hand.erl`, maybe you can help?
 
