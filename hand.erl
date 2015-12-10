@@ -18,7 +18,9 @@ compareRanks(_, {royal_flush, _}) -> -1;
 compareRanks({flush, F1, _},{flush, F2, _}) -> figures:compare(F1, F2);
 compareRanks({flush, _, _}, _) -> 1; 
 compareRanks(_, {flush, _, _}) -> -1;
-
+compareRanks({four_of_a_kind, F1},{four_of_a_kind, F2}) -> figures:compare(F1, F2);
+compareRanks({four_of_a_kind, _}, _) -> 1;
+compareRanks(_, {four_of_a_kind, _}) -> -1;
 compareRanks({high_card, {F1,_}}, {high_card, {F2,_}}) -> figures:compare(F1, F2).
     
 card_to_value({Figure, Color}) -> {f2i(Figure), Color}.
