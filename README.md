@@ -3,7 +3,11 @@
 My implementation of distributed Texas Holdem
 
 
-## Current status
+## Development: Current status
+
+### 1. API
+
+> Currently API holds typical Texas Holdem primitives. We can get deck of cards, rank single hands, compare hands, pick best hand given seven cards (2 + 5).
 
 Generate deck & shuffle cards
 
@@ -98,3 +102,10 @@ Print single card, print hand
 |Q♦| |A♠| |J♦| |8♦| |6♦|
 ```
 
+### 2. The Game (static)
+
+__TBD__
+
+### 3. The Game (distributed)
+
+__TBD__
