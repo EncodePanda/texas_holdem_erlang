@@ -1,5 +1,7 @@
 -module(test).
--export([test/0, royal_flush/1, flush/2, four_kind/1, color/1, full_house/2]).
+-export([test/0, royal_flush/1, flush/2, four_kind/1, 
+	 full_house/2, color/1, straight/1, 
+	 three_kind/1, two_pairs/2, pair/1]).
 -import(figures, [f2i/1, i2f/1]).
 
 repeat(F, N) ->
