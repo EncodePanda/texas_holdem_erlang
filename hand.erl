@@ -28,6 +28,19 @@ compareRanks(_, {full_house, _, _}) -> -1;
 compareRanks({color, _, F1},{color, _, F2}) -> figures:compare(F1, F2);
 compareRanks({color, _, _}, _) -> 1;
 compareRanks(_, {color, _, _}) -> -1;
+compareRanks({straight, F1},{straight, F2}) -> figures:compare(F1, F2);
+compareRanks({straight, _}, _) -> 1; 
+compareRanks(_, {straight, _}) -> -1;
+compareRanks({three_of_a_kind, F1},{three_of_a_kind, F2}) -> figures:compare(F1, F2);
+compareRanks({three_of_a_kind, _}, _) -> 1; 
+compareRanks(_, {three_of_a_kind, _}) -> -1;
+compareRanks({two_pairs, F, O1}, {two_pairs, F, O2}) -> figures:compare(O1, O2);
+compareRanks({two_pairs, F1, _}, {two_pairs, F2, _}) -> figures:compare(F1, F2);
+compareRanks({two_pairs, _, _}, _) -> 1;
+compareRanks(_, {two_pairs, _, _}) -> -1;
+compareRanks({pair, F1},{pair, F2}) -> figures:compare(F1, F2);
+compareRanks({pair, _}, _) -> 1; 
+compareRanks(_, {pair, _}) -> -1;
 compareRanks({high_card, {F1,_}}, {high_card, {F2,_}}) -> figures:compare(F1, F2).
     
 card_to_value({Figure, Color}) -> {f2i(Figure), Color}.
