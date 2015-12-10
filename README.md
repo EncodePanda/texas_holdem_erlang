@@ -68,38 +68,33 @@ Arrange hands
  {king,heart}]
 ```
 
-
-Print single card
-
-```
-> Card = lists:nth(1, Deck).
-{queen,dimonds}
-> util:print(deck:show(Card)).
-|Q♦|
-```
-Print few cards
-
-```
-> util:print(deck:show(lists:sublist(Deck, 5))).
-|Q♦| |A♠| |J♦| |8♦| |6♦|
-```
-
 Select best hand (5 cards out of 7).
 
 
 ```
-> Cards = lists:sublist(Deck, 7).
-[{8,heart},
- {2,spades},
- {3,spades},
+> SevenCards = [{7, dimonds}, {7,club}] ++ [{4, club}, {4,heart},{6,spades},{5,dimonds},{8,heart}].
+[{7,dimonds},
  {7,club},
- {4,spades},
- {5,spades},
- {ace,heart}]
+ {4,club},
+ {4,heart},
+ {6,spades},
+ {5,dimonds},
+ {8,heart}]
 
-> Hand = hand:pickBest(Cards).
-[{3,spades},{7,club},{4,spades},{5,spades},{ace,heart}]
+> BestHand = hand:pickBest(SevenCards).
+[{8,heart},{7,club},{6,spades},{5,dimonds},{4,heart}]
 
+> hand:rank(BestHand).
+{straight,8}
 ```
 
+Print single card, print hand
+
+```
+> util:print(deck:show({queen,dimonds})).
+|Q♦|
+
+> util:print(deck:show(lists:sublist(Deck, 5))).
+|Q♦| |A♠| |J♦| |8♦| |6♦|
+```
 
