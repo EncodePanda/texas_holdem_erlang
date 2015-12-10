@@ -7,7 +7,7 @@ allHands(Cards) ->
     [T || [_,_|T] <- util:perms(Cards)].
 
 pickBest(Cards) ->
-    nth(1,sort(fun(H1, H2) -> compare(H1,H2) >= 0 end, allHands(Cards))).
+    arrange(nth(1,sort(fun(H1, H2) -> compare(H1,H2) >= 0 end, allHands(Cards)))).
 
 compare(Hand1, Hand2) ->
     compareRanks(rank(Hand1), rank(Hand2)).
@@ -21,6 +21,13 @@ compareRanks(_, {flush, _, _}) -> -1;
 compareRanks({four_of_a_kind, F1},{four_of_a_kind, F2}) -> figures:compare(F1, F2);
 compareRanks({four_of_a_kind, _}, _) -> 1;
 compareRanks(_, {four_of_a_kind, _}) -> -1;
+compareRanks({full_house, F, O1}, {full_house, F, O2}) -> figures:compare(O1, O2);
+compareRanks({full_house, F1, _}, {full_house, F2, _}) -> figures:compare(F1, F2);
+compareRanks({full_house, _, _}, _) -> 1;
+compareRanks(_, {full_house, _, _}) -> -1;
+compareRanks({color, _, F1},{color, _, F2}) -> figures:compare(F1, F2);
+compareRanks({color, _, _}, _) -> 1;
+compareRanks(_, {color, _, _}) -> -1;
 compareRanks({high_card, {F1,_}}, {high_card, {F2,_}}) -> figures:compare(F1, F2).
     
 card_to_value({Figure, Color}) -> {f2i(Figure), Color}.
@@ -55,5 +62,6 @@ rankings([{F,_}, {F,_}, {O,_}, {O,_}, {_,_}]) ->
     {two_pairs,  i2f(F),  i2f(O)};
 rankings([{F,_}, {F,_}, {_,_}, {_,_}, {_,_}]) ->
     {pair,  i2f(F)};
-rankings([{F, C}|_]) -> {high_card, {i2f(F), C}}. 
+rankings([{F, C}|_]) -> 
+    {high_card, {i2f(F), C}}. 
     
